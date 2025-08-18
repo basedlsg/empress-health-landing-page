@@ -1,8 +1,14 @@
 {
   "builds": [
     {
-      "src": "next.config.ts",
+      "src": "package.json",
       "use": "@vercel/next"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
     }
   ]
 }
