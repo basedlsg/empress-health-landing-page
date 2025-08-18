@@ -25,14 +25,14 @@ const MinimalCenteredFooter = () => {
   ];
 
   return (
-    <section className="bg-background flex flex-col items-center gap-14 py-32">
+    <section className="bg-[#F5F2EF] flex flex-col items-center gap-14 py-32">
       <nav className="container flex flex-col items-center gap-4">
         <ul className="flex flex-wrap items-center justify-center gap-6">
           {navigation.map((item) => (
             <li key={item.name}>
               <a
                 href={item.href}
-                className="font-medium text-foreground transition-opacity hover:opacity-75"
+                className="font-medium text-[#4A235A] transition-opacity hover:opacity-75"
               >
                 {item.name}
               </a>
@@ -42,7 +42,7 @@ const MinimalCenteredFooter = () => {
             <li key={item.name}>
               <a
                 href={item.href}
-                className="flex items-center gap-0.5 font-medium text-foreground transition-opacity hover:opacity-75"
+                className="flex items-center gap-0.5 font-medium text-[#4A235A] transition-opacity hover:opacity-75"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -56,7 +56,7 @@ const MinimalCenteredFooter = () => {
             <li key={item.name}>
               <a
                 href={item.href}
-                className="text-sm text-muted-foreground transition-opacity hover:opacity-75"
+                className="text-sm text-[#6B5B73] transition-opacity hover:opacity-75"
               >
                 {item.name}
               </a>
@@ -64,7 +64,7 @@ const MinimalCenteredFooter = () => {
           ))}
         </ul>
       </nav>
-      <div className="text-sm text-muted-foreground">
+      <div className="text-sm text-[#6B5B73]">
         © 2024 Empress Health. All rights reserved.
       </div>
     </section>

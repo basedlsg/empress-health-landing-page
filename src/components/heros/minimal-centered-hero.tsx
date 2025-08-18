@@ -69,32 +69,23 @@ export function MinimalCenteredHero() {
         </Dialog>
       </header>
 
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="relative isolate px-6 pt-14 lg:px-8 bg-[#F5F2EF]">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="relative rounded-full px-3 py-1 text-sm/6 text-text-secondary ring-1 ring-border hover:ring-primary/20">
-              WELLNESS REDEFINED{" "}
-              <a href="#" className="font-semibold text-primary">
-                <span aria-hidden="true" className="absolute inset-0" />
-                See Empress Health in action <span aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </div>
           <div className="text-center">
-            <h1 className="font-[var(--font-display)] text-5xl font-semibold tracking-tight text-balance text-primary sm:text-7xl">
+            <h1 className="font-serif text-5xl font-semibold tracking-tight text-balance text-[#4A235A] sm:text-7xl">
               Reclaim Your Health. Rule Your Life.
             </h1>
-            <p className="mt-8 text-lg font-medium text-pretty text-text-secondary sm:text-xl/8">
+            <p className="mt-8 text-lg font-medium text-pretty text-[#6B5B73] sm:text-xl/8">
               Empress Health empowers women to take control of their wellness journey through personalized coaching, premium supplements, and evidence-based health solutions.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="/coach"
-                className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="rounded-md bg-[#4A235A] px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-[#4A235A]/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4A235A]"
               >
                 Try AskEmpress
               </a>
-              <a href="/shop" className="text-sm/6 font-semibold text-primary">
+              <a href="/shop" className="text-sm/6 font-semibold text-[#4A235A]">
                 Shop Essentials <span aria-hidden="true">→</span>
               </a>
             </div>

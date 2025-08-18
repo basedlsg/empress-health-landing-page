@@ -87,15 +87,15 @@ const ScrollingCarouselTestimonials = () => {
   );
 
   return (
-    <section className="py-32 bg-background">
+    <section className="py-32 bg-[#F5F2EF]">
       <div className="container flex flex-col items-center gap-4">
-        <h2 className="text-center text-3xl font-[var(--font-display)] font-semibold text-primary lg:text-4xl">
+        <h2 className="text-center text-3xl font-serif font-semibold text-[#4A235A] lg:text-4xl">
           Transformation Stories
         </h2>
-        <p className="text-center text-muted-foreground lg:text-lg">
+        <p className="text-center text-[#6B5B73] lg:text-lg">
           Real women, real results, real empowerment.
         </p>
-        <a href="#" className="flex items-center gap-1 font-semibold text-primary">
+        <a href="#" className="flex items-center gap-1 font-semibold text-[#4A235A]">
           View all testimonials
           <ChevronRight className="mt-0.5 h-4 w-auto" />
         </a>
@@ -108,27 +108,27 @@ const ScrollingCarouselTestimonials = () => {
             }}
             plugins={[plugin.current]}
             onMouseLeave={() => plugin.current.play()}
-            className="relative before:absolute before:top-0 before:bottom-0 before:left-0 before:z-10 before:w-36 before:bg-linear-to-r before:from-background before:to-transparent after:absolute after:top-0 after:right-0 after:bottom-0 after:z-10 after:w-36 after:bg-linear-to-l after:from-background after:to-transparent"
+            className="relative before:absolute before:top-0 before:bottom-0 before:left-0 before:z-10 before:w-36 before:bg-linear-to-r before:from-[#F5F2EF] before:to-transparent after:absolute after:top-0 after:right-0 after:bottom-0 after:z-10 after:w-36 after:bg-linear-to-l after:from-[#F5F2EF] after:to-transparent"
           >
             <CarouselContent>
               {testimonials.map((testimonial, index) => (
                 <CarouselItem key={index} className="basis-auto">
-                  <Card className="max-w-96 p-6 select-none bg-card border-border">
+                  <Card className="max-w-96 p-6 select-none bg-white border-border">
                     <div className="mb-4 flex gap-4">
-                      <Avatar className="size-14 rounded-full ring-1 ring-primary/20">
+                      <Avatar className="size-14 rounded-full ring-1 ring-[#4A235A]/20">
                         <AvatarImage
                           src={testimonial.avatar}
                           alt={testimonial.name}
                         />
                       </Avatar>
                       <div>
-                        <p className="font-medium text-primary">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="font-medium text-[#4A235A]">{testimonial.name}</p>
+                        <p className="text-sm text-[#6B5B73]">
                           {testimonial.role}
                         </p>
                       </div>
                     </div>
-                    <q className="leading-7 text-muted-foreground">
+                    <q className="leading-7 text-[#6B5B73]">
                       {testimonial.content}
                     </q>
                   </Card>

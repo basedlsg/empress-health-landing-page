@@ -116,7 +116,6 @@ export const AskEmpressChat = () => {
         },
         body: JSON.stringify({
           message: userMessage.text,
-          systemPrompt: "Empress Sense: compassionate menopause guide. Provide structure/function advice, no diagnosis, ≤180 words."
         }),
       });
 
