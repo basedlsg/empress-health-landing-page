@@ -31,7 +31,11 @@ export default function ShopPage() {
         throw new Error('Failed to fetch products');
       }
       const data = await response.json();
-      setProducts(data);
+      const productsWithImageUrl = data.map((product: any) => ({
+        ...product,
+        imageUrl: product.image_url,
+      }));
+      setProducts(productsWithImageUrl);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {

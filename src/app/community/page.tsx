@@ -128,6 +128,9 @@ export default function CommunityPodsPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
+          <Button variant="ghost" onClick={() => router.back()} className="absolute top-6 left-6">
+            &larr; Back
+          </Button>
           <h1 className="text-4xl font-bold text-[#4A235A] mb-4 font-serif">Community Pods</h1>
           <p className="text-lg text-[#6B5B73] max-w-2xl mx-auto">
             Join supportive micro-communities for your menopause journey

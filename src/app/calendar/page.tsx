@@ -80,7 +80,6 @@ export default function CalendarPage() {
                 />
               </div>
 
-              <CalendarFallback />
             </div>
           </Card>
 
