@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { messages, pods, products } from '@/db/schema';
 import { eq, like, or, desc, asc } from 'drizzle-orm';
 
@@ -10,6 +10,7 @@ export async function getMessages(options: {
 }) {
   const { conversationId, limit = 10, offset = 0 } = options;
 
+  const db = getDb();
   const baseQuery = db.select({
     id: messages.id,
     conversationId: messages.conversationId,
@@ -41,6 +42,7 @@ export async function getPods(options: {
 }) {
   const { search, limit = 10, offset = 0 } = options;
 
+  const db = getDb();
   const baseQuery = db.select().from(pods);
 
   if (search) {
@@ -70,6 +72,7 @@ export async function getProducts(options: {
 }) {
   const { search, limit = 10, offset = 0 } = options;
 
+  const db = getDb();
   const baseQuery = db.select().from(products);
 
   if (search) {

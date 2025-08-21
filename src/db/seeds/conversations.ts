@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { conversations } from '@/db/schema';
 
 async function main() {
@@ -22,6 +22,7 @@ async function main() {
         },
     ];
 
+    const db = getDb();
     await db.insert(conversations).values(sampleConversations);
 
     console.log('✅ Conversations seeder completed successfully');

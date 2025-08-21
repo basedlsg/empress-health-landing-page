@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { doctorsWaitlist } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
@@ -45,6 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for existing email
+    const db = getDb();
     const existingEntry = await db.select()
       .from(doctorsWaitlist)
       .where(eq(doctorsWaitlist.email, sanitizedEmail))

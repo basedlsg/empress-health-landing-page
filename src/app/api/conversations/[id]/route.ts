@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { conversations, messages } from '@/db/schema';
 import { eq, asc } from 'drizzle-orm';
 
@@ -20,6 +20,7 @@ export async function GET(
     const conversationId = parseInt(id);
 
     // Fetch conversation by ID
+    const db = getDb();
     const conversation = await db.select()
       .from(conversations)
       .where(eq(conversations.id, conversationId))

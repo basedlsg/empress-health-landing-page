@@ -39,6 +39,9 @@ export default function HomePage() {
 
             {/* CTA Buttons */}
             <div className="flex space-x-4">
+              <Button variant="outline" className="bg-yellow-100 text-purple-700 border-yellow-200 hover:bg-yellow-200">
+                Sign in
+              </Button>
               <Button onClick={handleGetStarted} className="bg-purple-700 hover:bg-purple-800">
                 Get started
               </Button>
@@ -62,6 +65,9 @@ export default function HomePage() {
               <div className="flex space-x-4">
                 <Button onClick={handleGetStarted} size="lg" className="bg-purple-700 hover:bg-purple-800">
                   Get started
+                </Button>
+                <Button size="lg" variant="outline" className="bg-yellow-100 text-purple-700 border-yellow-200 hover:bg-yellow-200">
+                  Sign in
                 </Button>
               </div>
             </div>
@@ -263,7 +269,7 @@ export default function HomePage() {
               <div className="mt-4 flex items-center space-x-2">
                 <Checkbox id="privacy" />
                 <Label htmlFor="privacy" className="text-xs text-gray-500">
-                  I agree to Osisipages privacy and cookie policy. You can unsubscribe from newsletter at anytime
+                  I agree to Empresshealth AI privacy and cookie policy. You can unsubscribe from newsletter at anytime
                 </Label>
               </div>
             </div>
