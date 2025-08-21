@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { pods } from '@/db/schema';
-import { eq, like, or, desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
+import { getPods } from '@/lib/query-helpers';
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,21 +35,11 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
     const search = searchParams.get('search');
 
-    let query = db.select().from(pods);
-    
-    if (search) {
-      query = query.where(
-        or(
-          like(pods.name, `%${search}%`),
-          like(pods.topic, `%${search}%`)
-        )
-      );
-    }
-
-    const results = await query
-      .orderBy(desc(pods.createdAt))
-      .limit(limit)
-      .offset(offset);
+    const results = await getPods({
+      search: search || undefined,
+      limit,
+      offset
+    });
 
     return NextResponse.json(results);
   } catch (error) {

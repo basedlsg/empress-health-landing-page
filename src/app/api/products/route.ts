@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
-import { products } from '@/db/schema';
-import { like, or, desc } from 'drizzle-orm';
+import { getProducts } from '@/lib/query-helpers';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,24 +10,12 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
     const search = searchParams.get('search');
 
-    // Build base query
-    let query = db.select().from(products);
-
-    // Add search filter if provided
-    if (search) {
-      query = query.where(
-        or(
-          like(products.title, `%${search}%`),
-          like(products.description, `%${search}%`)
-        )
-      );
-    }
-
-    // Add ordering, pagination and execute query
-    const results = await query
-      .orderBy(desc(products.createdAt))
-      .limit(limit)
-      .offset(offset);
+    // Use helper function to avoid type conflicts
+    const results = await getProducts({
+      search: search || undefined,
+      limit,
+      offset
+    });
 
     return NextResponse.json(results, { status: 200 });
 

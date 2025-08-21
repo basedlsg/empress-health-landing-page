@@ -5,10 +5,10 @@ import { eq } from 'drizzle-orm';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const id = params.id;
 
     if (!id || isNaN(parseInt(id))) {
       return NextResponse.json({
@@ -81,10 +81,10 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const id = params.id;
 
     if (!id || isNaN(parseInt(id))) {
       return NextResponse.json({

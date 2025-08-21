@@ -3,9 +3,10 @@ import { db } from '@/db';
 import { podMemberships, pods } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const podId = params.id;
+    const { id } = await params;
+    const podId = id;
     
     // Validate podId
     if (!podId || isNaN(parseInt(podId))) {

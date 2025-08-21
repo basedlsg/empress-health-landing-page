@@ -3,9 +3,9 @@ import { db } from '@/db';
 import { pods, podMemberships } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     
     // Validate podId from URL params

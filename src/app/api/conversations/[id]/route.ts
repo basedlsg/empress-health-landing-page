@@ -5,11 +5,11 @@ import { eq, asc } from 'drizzle-orm';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     // Validate ID parameter from path
-    const id = params.id;
     if (!id || isNaN(parseInt(id))) {
       return NextResponse.json({ 
         error: "Valid conversation ID is required",
