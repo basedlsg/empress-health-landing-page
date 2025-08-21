@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { messages, conversations } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
+    const db = getDb();
     const body = await request.json();
     const { speaker, text, timestamp } = body;
-    const conversationId = params.id;
+    const conversationId = id;
 
     // Validate required fields
     if (!conversationId || isNaN(parseInt(conversationId))) {

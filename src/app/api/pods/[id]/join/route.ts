@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { podMemberships, pods } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const podId = params.id;
+    const { id } = await params;
+    const podId = id;
     
     // Validate podId
     if (!podId || isNaN(parseInt(podId))) {
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const userIdInt = parseInt(userId);
 
     // Check if pod exists
+    const db = getDb();
     const pod = await db.select()
       .from(pods)
       .where(eq(pods.id, podIdInt))

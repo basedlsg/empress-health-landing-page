@@ -1,4 +1,5 @@
-import { db } from '@/db';
+import { getDb } from '@/db';
+const db = getDb();
 import { products } from '@/db/schema';
 
 async function main() {

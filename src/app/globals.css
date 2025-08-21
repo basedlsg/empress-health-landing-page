@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-background: #FAF8F5;
+  --color-background: #FFFAF1;
   --color-foreground: #2D1B33;
 
   --color-card: #FFFFFF;
@@ -14,7 +14,7 @@
   --color-popover: #FFFFFF;
   --color-popover-foreground: #2D1B33;
 
-  --color-primary: #4A235A;
+  --color-primary: #321B4F;
   --color-primary-foreground: #FFFFFF;
 
   --color-secondary: #D7BCE8;
@@ -23,7 +23,7 @@
   --color-muted: #F5F2EF;
   --color-muted-foreground: #6B5B73;
 
-  --color-accent: #D7BCE8;
+  --color-accent: #DBA527;
   --color-accent-foreground: #4A235A;
 
   --color-destructive: #ef4444;
@@ -98,19 +98,19 @@
 
 @layer base {
   :root {
-    --background: #FAF8F5;
+    --background: #FFFAF1;
     --foreground: #2D1B33;
     --card: #FFFFFF;
     --card-foreground: #2D1B33;
     --popover: #FFFFFF;
     --popover-foreground: #2D1B33;
-    --primary: #4A235A;
+    --primary: #321B4F;
     --primary-foreground: #FFFFFF;
     --secondary: #D7BCE8;
     --secondary-foreground: #4A235A;
     --muted: #F5F2EF;
     --muted-foreground: #6B5B73;
-    --accent: #D7BCE8;
+    --accent: #DBA527;
     --accent-foreground: #4A235A;
     --destructive: #ef4444;
     --destructive-foreground: #FFFFFF;

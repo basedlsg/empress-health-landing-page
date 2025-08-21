@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { podPosts, pods, podMemberships } from '@/db/schema';
 import { eq, desc, and } from 'drizzle-orm';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const podId = params.id;
+    const db = getDb();
+    const { id } = await params;
+    const podId = id;
     const { searchParams } = new URL(request.url);
     
     // Validate pod ID
@@ -55,10 +57,12 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const podId = params.id;
+    const db = getDb();
+    const { id } = await params;
+    const podId = id;
     
     // Validate pod ID
     if (!podId || isNaN(parseInt(podId))) {

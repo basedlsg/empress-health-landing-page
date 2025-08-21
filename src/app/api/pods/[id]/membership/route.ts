@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { pods, podMemberships } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
     const userIdParam = searchParams.get('userId');
-    const podId = params.id;
+    const { id } = await params;
+    const podId = id;
 
     // Validate podId
     if (!podId || isNaN(parseInt(podId))) {
@@ -32,6 +33,7 @@ export async function GET(
     const podIdInt = parseInt(podId);
 
     // Check if pod exists
+    const db = getDb();
     const pod = await db.select()
       .from(pods)
       .where(eq(pods.id, podIdInt))

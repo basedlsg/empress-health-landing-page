@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { messages, conversations } from '@/db/schema';
-import { eq, desc, and } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
+import { getMessages } from '@/lib/query-helpers';
 
 export async function GET(request: NextRequest) {
   try {
@@ -22,26 +23,12 @@ export async function GET(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Build query with optional filtering
-    let query = db.select({
-      id: messages.id,
-      conversationId: messages.conversationId,
-      speaker: messages.speaker,
-      text: messages.text,
-      timestamp: messages.timestamp,
-      createdAt: messages.createdAt
-    }).from(messages);
-
-    // Apply conversation filter if provided
-    if (conversationId) {
-      query = query.where(eq(messages.conversationId, parseInt(conversationId)));
-    }
-
-    // Execute query with ordering, limit, and offset
-    const results = await query
-      .orderBy(desc(messages.timestamp))
-      .limit(limit)
-      .offset(offset);
+    // Use helper function to avoid type conflicts
+    const results = await getMessages({
+      conversationId: conversationId || undefined,
+      limit,
+      offset
+    });
 
     return NextResponse.json(results);
 
@@ -55,6 +42,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const db = getDb();
     const body = await request.json();
     
     // Validate required fields
@@ -121,6 +109,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     
@@ -214,6 +203,7 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     

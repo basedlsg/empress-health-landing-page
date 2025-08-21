@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { pods } from '@/db/schema';
-import { eq, like, or, desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
+import { getPods } from '@/lib/query-helpers';
 
 export async function GET(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -34,21 +36,11 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
     const search = searchParams.get('search');
 
-    let query = db.select().from(pods);
-    
-    if (search) {
-      query = query.where(
-        or(
-          like(pods.name, `%${search}%`),
-          like(pods.topic, `%${search}%`)
-        )
-      );
-    }
-
-    const results = await query
-      .orderBy(desc(pods.createdAt))
-      .limit(limit)
-      .offset(offset);
+    const results = await getPods({
+      search: search || undefined,
+      limit,
+      offset
+    });
 
     return NextResponse.json(results);
   } catch (error) {
@@ -61,6 +53,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const db = getDb();
     const body = await request.json();
     const { name, topic } = body;
 
@@ -99,6 +92,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -160,6 +154,7 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const db = getDb();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
