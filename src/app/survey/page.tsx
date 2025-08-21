@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import { CheckCircle, ArrowRight, ArrowLeft, User, Apple, Dumbbell, Pill, Crown, Star } from 'lucide-react'
+import { CheckCircle, ArrowRight, ArrowLeft, User, Apple, Dumbbell, Pill, Crown, Star, Heart, Sparkles, ShoppingBag } from 'lucide-react'
 
 interface Question {
   id: string
@@ -25,6 +25,25 @@ interface Recommendations {
   supplements: string[]
   exercises: string[]
   lifestyle: string[]
+}
+
+interface Doctor {
+  name: string
+  specialty: string
+  focus: string
+}
+
+interface Product {
+  name: string
+  description: string
+  price: string
+  image: string
+  benefits: string[]
+}
+
+interface Affirmation {
+  text: string
+  category: string
 }
 
 const questions: Question[] = [
@@ -158,10 +177,48 @@ const questions: Question[] = [
   }
 ]
 
+const doctors: Doctor[] = [
+  { name: "Dr. Laura A. Carinci, MD", specialty: "Hot flashes, Night sweats", focus: "Temperature regulation and sleep quality" },
+  { name: "Dr. Tracey J. Fein, MD", specialty: "Hormone imbalance, Hot flashes", focus: "Hormonal balance and symptom management" },
+  { name: "Dr. Mary Jane Minkin, MD", specialty: "Vaginal dryness, Painful sex, Sexual discomfort", focus: "Sexual health and comfort" },
+  { name: "Dr. Florence Comite, MD", specialty: "Bone loss, Osteoporosis, Metabolic changes", focus: "Bone health and metabolism" },
+  { name: "Dr. Susan Lark, MD", specialty: "Brain fog, Memory issues, Holistic menopause care", focus: "Cognitive health and holistic wellness" },
+  { name: "Dr. Niti R. Aggarwal, MD", specialty: "Heart palpitations, Cardiovascular risk", focus: "Cardiovascular health and heart function" },
+  { name: "Dr. Suzanne Steinbaum, MD", specialty: "Cardiovascular health, Preventive care", focus: "Heart health and prevention" },
+  { name: "Dr. Steven R. Goldstein, MD", specialty: "Hormone therapy, Irregular bleeding", focus: "Hormone therapy and menstrual health" },
+  { name: "Dr. Deborah Kwolek, MD", specialty: "Perimenopause transition, Hormonal imbalance", focus: "Transition support and hormonal balance" },
+  { name: "Dr. Jen Gunter, MD", specialty: "Pelvic pain, Sexual health, Body image concerns", focus: "Pelvic health and body confidence" }
+]
+
+const products: Product[] = [
+  {
+    name: "Empress Naturals Anti Aging (AM Serum)",
+    description: "Morning radiance and hydration serum with naturally sourced ingredients",
+    price: "From $30.00",
+    image: "/am-serum.webp",
+    benefits: ["Hydrates and brightens skin", "Reduces fine lines", "Protects against environmental damage", "Natural ingredients"]
+  },
+  {
+    name: "Empress Naturals Luxe Night Elixir (PM Serum)",
+    description: "Nighttime repair and rejuvenation serum for optimal skin recovery",
+    price: "From $30.00",
+    image: "/pm-serum.webp",
+    benefits: ["Deep repair and regeneration", "Improves skin texture", "Reduces appearance of aging", "Calming and soothing"]
+  },
+  {
+    name: "Kansa Wand - Face & Body",
+    description: "Traditional Ayurvedic massage tool for facial and body wellness",
+    price: "From $70.00",
+    image: "/kansa-wand.webp",
+    benefits: ["Improves circulation", "Reduces puffiness", "Promotes lymphatic drainage", "Natural anti-aging tool"]
+  }
+]
+
 export default function SurveyPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Answers>({})
   const [showResults, setShowResults] = useState(false)
+  const [showAdditionalRecs, setShowAdditionalRecs] = useState(false)
   const [recommendations, setRecommendations] = useState<Recommendations | null>(null)
 
   const handleAnswer = (questionId: string, value: string, type: 'radio' | 'checkbox') => {
@@ -197,6 +254,67 @@ export default function SurveyPage() {
     const recs = getRecommendations(persona, answers)
     setRecommendations(recs)
     setShowResults(true)
+  }
+
+  const showAdditionalRecommendations = () => {
+    setShowAdditionalRecs(true)
+  }
+
+  const getRecommendedDoctors = (persona: string): Doctor[] => {
+    const doctorMap: { [key: string]: string[] } = {
+      thermal_regulator: ["Dr. Laura A. Carinci, MD", "Dr. Tracey J. Fein, MD", "Dr. Steven R. Goldstein, MD"],
+      mood_balancer: ["Dr. Susan Lark, MD", "Dr. Deborah Kwolek, MD", "Dr. Jen Gunter, MD"],
+      metabolism_booster: ["Dr. Florence Comite, MD", "Dr. Niti R. Aggarwal, MD", "Dr. Suzanne Steinbaum, MD"],
+      sleep_optimizer: ["Dr. Laura A. Carinci, MD", "Dr. Susan Lark, MD", "Dr. Deborah Kwolek, MD"],
+      joint_supporter: ["Dr. Florence Comite, MD", "Dr. Susan Lark, MD", "Dr. Jen Gunter, MD"],
+      holistic_wellness: ["Dr. Susan Lark, MD", "Dr. Deborah Kwolek, MD", "Dr. Florence Comite, MD"]
+    }
+    
+    const recommendedNames = doctorMap[persona] || doctorMap.holistic_wellness
+    return doctors.filter(doctor => recommendedNames.includes(doctor.name))
+  }
+
+  const getPersonalizedAffirmations = (persona: string, answers: Answers): Affirmation[] => {
+    const affirmations: { [key: string]: Affirmation[] } = {
+      thermal_regulator: [
+        { text: "I am cool, calm, and in control of my body's temperature", category: "temperature" },
+        { text: "My body knows how to regulate itself naturally", category: "confidence" },
+        { text: "I embrace my body's natural rhythms with grace", category: "acceptance" },
+        { text: "I am strong and resilient through every change", category: "strength" }
+      ],
+      mood_balancer: [
+        { text: "I choose peace and positivity in every moment", category: "mood" },
+        { text: "My emotions are valid and I handle them with wisdom", category: "emotional" },
+        { text: "I am worthy of joy and inner peace", category: "self-worth" },
+        { text: "I trust my inner strength to guide me through challenges", category: "trust" }
+      ],
+      metabolism_booster: [
+        { text: "My body is capable of amazing transformation", category: "transformation" },
+        { text: "I fuel my body with love and nourishing choices", category: "nourishment" },
+        { text: "I am building strength and vitality every day", category: "vitality" },
+        { text: "My metabolism supports my health and wellness goals", category: "health" }
+      ],
+      sleep_optimizer: [
+        { text: "I deserve restful, rejuvenating sleep", category: "sleep" },
+        { text: "My mind and body are ready for peaceful rest", category: "peace" },
+        { text: "I release all tension and embrace tranquility", category: "relaxation" },
+        { text: "I wake up refreshed and ready for a beautiful day", category: "energy" }
+      ],
+      joint_supporter: [
+        { text: "My body is strong and supports me in all I do", category: "strength" },
+        { text: "I move with grace and ease through life", category: "movement" },
+        { text: "I honor my body's needs and treat it with care", category: "care" },
+        { text: "I am flexible and adaptable in body and mind", category: "flexibility" }
+      ],
+      holistic_wellness: [
+        { text: "I am whole, healthy, and perfectly designed", category: "wholeness" },
+        { text: "I embrace my journey with wisdom and grace", category: "wisdom" },
+        { text: "I am worthy of optimal health and wellness", category: "worth" },
+        { text: "I trust my body's natural wisdom and healing", category: "trust" }
+      ]
+    }
+    
+    return affirmations[persona] || affirmations.holistic_wellness
   }
 
   const determinePersona = (answers: Answers): string => {
@@ -413,6 +531,125 @@ export default function SurveyPage() {
     return baseRecs[persona as keyof typeof baseRecs] || baseRecs.holistic_wellness
   }
 
+  if (showAdditionalRecs && recommendations) {
+    const persona = determinePersona(answers)
+    const recommendedDoctors = getRecommendedDoctors(persona)
+    const personalizedAffirmations = getPersonalizedAffirmations(persona, answers)
+
+    return (
+      <div className="min-h-screen bg-[#FAF8F5] px-8 py-16">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <div className="relative">
+                <Crown className="h-8 w-8 text-purple-700" />
+                <Star className="h-3 w-3 text-yellow-500 absolute -top-1 -right-1" />
+              </div>
+              <span className="text-2xl font-bold text-purple-700">Empress Health</span>
+            </div>
+            <h1 className="text-4xl font-bold text-purple-700 mb-4">Your Complete Wellness Journey</h1>
+            <p className="text-xl text-gray-600">
+              Personalized recommendations to support your health and beauty
+            </p>
+          </div>
+
+          {/* Doctors Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-purple-700 mb-8 flex items-center gap-3">
+              <Heart className="h-8 w-8 text-red-500" />
+              Recommended Healthcare Providers
+            </h2>
+            <div className="grid gap-6 md:grid-cols-3">
+              {recommendedDoctors.map((doctor, index) => (
+                <div key={index} className="bg-white rounded-lg p-6 shadow-sm border border-purple-100">
+                  <h3 className="text-xl font-semibold text-purple-700 mb-2">{doctor.name}</h3>
+                  <p className="text-gray-600 mb-3">{doctor.specialty}</p>
+                  <p className="text-sm text-gray-500">{doctor.focus}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Affirmations Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-purple-700 mb-8 flex items-center gap-3">
+              <Sparkles className="h-8 w-8 text-yellow-500" />
+              Daily Affirmations for You
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {personalizedAffirmations.map((affirmation, index) => (
+                <div key={index} className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border border-purple-200">
+                  <p className="text-lg text-gray-800 italic">"{affirmation.text}"</p>
+                  <span className="inline-block mt-2 text-sm text-purple-600 font-medium">{affirmation.category}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Products Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-purple-700 mb-8 flex items-center gap-3">
+              <ShoppingBag className="h-8 w-8 text-green-500" />
+              Recommended Products from Empress Naturals
+            </h2>
+                         <div className="grid gap-8 md:grid-cols-3">
+               {products.map((product, index) => (
+                 <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                   <div className="h-48 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center overflow-hidden">
+                     <img 
+                       src={product.image} 
+                       alt={product.name}
+                       className="w-full h-full object-cover"
+                     />
+                   </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.name}</h3>
+                    <p className="text-gray-600 mb-3">{product.description}</p>
+                    <p className="text-lg font-bold text-purple-700 mb-4">{product.price}</p>
+                    <ul className="space-y-2">
+                      {product.benefits.map((benefit, benefitIndex) => (
+                        <li key={benefitIndex} className="flex items-start gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                          <span className="text-sm text-gray-700">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="text-center space-y-4">
+            <Button
+              onClick={() => {
+                setShowAdditionalRecs(false)
+                setShowResults(false)
+                setCurrentQuestion(0)
+                setAnswers({})
+                setRecommendations(null)
+              }}
+              variant="outline"
+              className="border-purple-200 text-purple-700 hover:bg-purple-50"
+            >
+              Take Quiz Again
+            </Button>
+            <div>
+              <Button
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdK4N45ySKhGOkvAx43wLwSnLvBvbS4emkm3gCTTXax2CAJoA/viewform?usp=dialog', '_blank')}
+                className="bg-purple-700 hover:bg-purple-800 text-white"
+              >
+                Share Your Feedback
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (showResults && recommendations) {
     return (
       <div className="min-h-screen bg-[#FAF8F5] px-8 py-16">
@@ -504,19 +741,22 @@ export default function SurveyPage() {
             </div>
           </div>
 
-          <div className="text-center mt-16">
-            <Button 
-              onClick={() => {
-                setShowResults(false)
-                setCurrentQuestion(0)
-                setAnswers({})
-                setRecommendations(null)
-              }}
-              variant="outline"
-              className="border-purple-200 text-purple-700 hover:bg-purple-50"
+          <div className="text-center mt-16 space-y-4">
+            <Button
+              onClick={showAdditionalRecommendations}
+              className="bg-purple-700 hover:bg-purple-800 text-white"
             >
-              Take Quiz Again
+              Get More Recommendations →
             </Button>
+            <div>
+              <Button
+                onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdK4N45ySKhGOkvAx43wLwSnLvBvbS4emkm3gCTTXax2CAJoA/viewform?usp=dialog', '_blank')}
+                variant="outline"
+                className="border-purple-200 text-purple-700 hover:bg-purple-50"
+              >
+                Share Your Feedback
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -592,6 +832,17 @@ export default function SurveyPage() {
             className="bg-purple-700 hover:bg-purple-800 text-white"
           >
             {currentQuestion === questions.length - 1 ? "Get Results" : "Next →"}
+          </Button>
+        </div>
+
+        {/* Survey Button */}
+        <div className="text-center mt-8">
+          <Button
+            onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdK4N45ySKhGOkvAx43wLwSnLvBvbS4emkm3gCTTXax2CAJoA/viewform?usp=dialog', '_blank')}
+            variant="outline"
+            className="border-purple-200 text-purple-700 hover:bg-purple-50"
+          >
+            Share Your Feedback
           </Button>
         </div>
       </div>
