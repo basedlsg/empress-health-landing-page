@@ -549,8 +549,8 @@ export default function SurveyPage() {
               <span className="text-2xl font-bold text-purple-700">Empress Health</span>
             </div>
             <h1 className="text-4xl font-bold text-purple-700 mb-4">Your Complete Wellness Journey</h1>
-            <p className="text-xl text-gray-600">
-              Personalized recommendations to support your health and beauty
+            <p className="text-2xl font-bold text-gray-800">
+              Personalized recommendations to support health and wellness
             </p>
           </div>
 
@@ -684,8 +684,8 @@ export default function SurveyPage() {
           {/* Recommendations Grid */}
           <div className="grid gap-12 md:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-bold text-purple-700 mb-6 flex items-center gap-2">
-                <Apple className="h-6 w-6 text-green-600" />
+              <h2 className="text-2xl font-bold text-[#DBA527] mb-6 flex items-center gap-2">
+                <Apple className="h-6 w-6 text-[#DBA527]" />
                 Nutrition Recommendations
               </h2>
               <ul className="space-y-3">

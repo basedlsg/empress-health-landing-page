@@ -39,7 +39,7 @@ export default function HomePage() {
 
             {/* CTA Buttons */}
             <div className="flex space-x-4">
-              <Button onClick={handleGetStarted} className="bg-purple-700 hover:bg-purple-800">
+              <Button onClick={handleGetStarted} className="bg-[#DBA527] hover:bg-[#C19A1F] text-white">
                 Get started
               </Button>
             </div>
@@ -50,30 +50,17 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div>
-              <h1 className="text-5xl font-bold text-purple-700 mb-6">
-                Where Menopause Meets Care That Listens
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Empress Health is where AI meets empathy, connecting women in menopause with trusted experts, uplifting affirmations, and personalized wellness care.
-              </p>
-              <div className="flex space-x-4">
-                <Button onClick={handleGetStarted} size="lg" className="bg-purple-700 hover:bg-purple-800">
-                  Get started
-                </Button>
-              </div>
-            </div>
-
-            {/* Right Image Placeholder */}
-            <div className="bg-gradient-to-br from-purple-100 to-yellow-100 rounded-2xl p-8 text-center">
-              <div className="w-full h-80 bg-gradient-to-br from-purple-200 to-yellow-200 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-700 mb-2">Where Menopause Meets Care That Listens</div>
-                  <div className="text-purple-600">Empress Health. Smarter care for menopause, built on empathy and designed for you</div>
-                </div>
-              </div>
+          <div className="text-center">
+            <h1 className="text-5xl font-bold text-purple-700 mb-6">
+              Where Menopause Meets Care That Listens
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Empress Health is where AI meets empathy, connecting women in menopause with trusted experts, uplifting affirmations, and personalized wellness care.
+            </p>
+            <div className="flex justify-center">
+              <Button onClick={handleGetStarted} size="lg" className="bg-[#DBA527] hover:bg-[#C19A1F] text-white">
+                Get started
+              </Button>
             </div>
           </div>
         </div>
