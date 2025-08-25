@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { messages, conversations } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
@@ -9,6 +9,7 @@ export async function POST(
 ) {
   const { id } = await params;
   try {
+    const db = getDb();
     const body = await request.json();
     const { speaker, text, timestamp } = body;
     const conversationId = id;

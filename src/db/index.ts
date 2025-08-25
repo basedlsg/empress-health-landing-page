@@ -1,12 +1,26 @@
 import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
+import { createClient, Client } from '@libsql/client';
 import * as schema from '@/db/schema';
 
-const client = createClient({
-  url: process.env.TURSO_CONNECTION_URL!,
-  authToken: process.env.TURSO_AUTH_TOKEN!,
-});
+let _db: ReturnType<typeof drizzle<Client>> | null = null;
 
-export const db = drizzle(client, { schema });
+export function getDb() {
+  if (_db) return _db;
 
-export type Database = typeof db;
+  const url = process.env.TURSO_CONNECTION_URL;
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+
+  if (!url) {
+    throw new Error('TURSO_CONNECTION_URL is not set.');
+  }
+  if (!authToken) {
+    throw new Error('TURSO_AUTH_TOKEN is not set.');
+  }
+
+  const client = createClient({ url, authToken });
+  _db = drizzle(client, { schema });
+  return _db;
+}
+
+// Keep a type alias for consumers
+export type Database = ReturnType<typeof getDb>;

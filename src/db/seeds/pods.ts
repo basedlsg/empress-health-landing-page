@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { pods } from '@/db/schema';
 
 async function main() {
@@ -24,6 +24,7 @@ async function main() {
         }
     ];
 
+    const db = getDb();
     await db.insert(pods).values(samplePods);
     
     console.log('✅ Pods seeder completed successfully');

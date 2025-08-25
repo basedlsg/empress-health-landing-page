@@ -41,3 +41,24 @@ next-env.d.ts
 
 # Cloned repository for reference
 Menopause-Health-Tips-ze/
+
+# IDEs
+.idea/
+.vscode/
+
+# environment files
+.env
+.env.*
+!.env.example
+
+# OS
+Thumbs.db
+
+# build output
+/dist
+
+# tooling caches
+.eslintcache
+.turbo
+.swc
+.parcel-cache

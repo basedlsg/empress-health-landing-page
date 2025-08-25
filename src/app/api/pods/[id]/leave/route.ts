@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { pods, podMemberships } from '@/db/schema';
 import { eq, and } from 'drizzle-orm';
 
@@ -45,6 +45,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     const userIdInt = parseInt(userId);
 
     // Check if pod exists
+    const db = getDb();
     const pod = await db.select()
       .from(pods)
       .where(eq(pods.id, podId))

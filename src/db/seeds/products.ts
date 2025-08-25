@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { products } from '@/db/schema';
 
 async function main() {
@@ -75,6 +75,7 @@ async function main() {
         },
     ];
 
+    const db = getDb();
     await db.insert(products).values(sampleProducts);
 
     console.log('✅ Products seeder completed successfully');

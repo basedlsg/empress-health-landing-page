@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
+import { getDb } from '@/db';
 import { messages } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
@@ -19,6 +19,8 @@ export async function PUT(
 
     const body = await request.json();
     const { text, timestamp } = body;
+
+    const db = getDb();
 
     // Check if message exists
     const existingMessage = await db.select()
@@ -85,6 +87,7 @@ export async function DELETE(
 ) {
   const { id } = await params;
   try {
+    const db = getDb();
 
     if (!id || isNaN(parseInt(id))) {
       return NextResponse.json({
